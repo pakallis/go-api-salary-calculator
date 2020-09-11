@@ -276,3 +276,51 @@ func TestGetSalaryParts(t *testing.T) {
 		}
 	}
 }
+
+func TestGrossForNetSalary(t *testing.T) {
+	type TestCase struct {
+		netSalary float32
+		insurance float32
+		kids      int
+		expected  float32
+	}
+
+	testCases := []TestCase{
+		TestCase{
+			netSalary: 10000,
+			insurance: 0,
+			kids:      0,
+			expected:  10157,
+		},
+		TestCase{
+			netSalary: 20000,
+			insurance: 0,
+			kids:      0,
+			expected:  24090,
+		},
+		TestCase{
+			netSalary: 30000,
+			insurance: 0,
+			kids:      0,
+			expected:  41308,
+		},
+		TestCase{
+			netSalary: 50000,
+			insurance: 0,
+			kids:      0,
+			expected:  83511,
+		},
+		TestCase{
+			netSalary: 100000,
+			insurance: 0,
+			kids:      0,
+			expected:  189894,
+		},
+	}
+	for _, te := range testCases {
+		res := GrossForNetSalary(te.netSalary, te.insurance, te.kids, 1, 1)
+		if !isClose(te.expected, res) {
+			t.Errorf("GrossForNetSalary() = %f, expected = %f", res, te.expected)
+		}
+	}
+}

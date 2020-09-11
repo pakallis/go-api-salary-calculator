@@ -1,6 +1,8 @@
 package taxcalculator
 
-import "math"
+import (
+	"math"
+)
 
 const infinity float32 = 100000000
 
@@ -73,4 +75,14 @@ func getSalaryParts(salary float32, insurance float32, kids int) SalaryParts {
 		totalTax:      totalTax,
 		netSalary:     netSalary,
 	}
+}
+
+func GrossForNetSalary(netSalary float32, insurance float32, kids int, threshold int, step int) float32 {
+	grossSalary := netSalary
+	salaryDiff := netSalary - getSalaryParts(grossSalary, insurance, kids).netSalary
+	for salaryDiff > float32(threshold) {
+		grossSalary += float32(step)
+		salaryDiff = netSalary - getSalaryParts(grossSalary, insurance, kids).netSalary
+	}
+	return grossSalary
 }

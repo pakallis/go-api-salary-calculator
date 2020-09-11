@@ -1,4 +1,4 @@
-package tax_calculator
+package taxcalculator
 
 import "math"
 
